@@ -53,7 +53,7 @@ Figure 1
 <iframe src='assets/baseline-confusion-matrix.png' width=1000 height=500 frameBorder=0></iframe>
 
 Figure 2
-<iframe src='assets/baseline-roc.png' width=1000 height=450 frameBorder=0></iframe>
+<iframe src='assets/baseline-roc.png' width=900 height=450 frameBorder=0></iframe>
 
 
 ### Detailed description & Performance of Baseline Model
