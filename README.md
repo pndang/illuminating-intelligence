@@ -120,10 +120,10 @@ Figure 2
 
 
 Figure 3 
-<iframe src='assets/final-confusion-matrix.png' width=1000 height=500 frameBorder=0></iframe>
+<iframe src='assets/final-confusion-matrix.png' width=9000 height=500 frameBorder=0></iframe>
 
 Figure 4
-<iframe src='assets/final-roc.png' width=1000 height=500 frameBorder=0></iframe>
+<iframe src='assets/final-roc.png' width=900 height=500 frameBorder=0></iframe>
 
 
 ### Detailed description & Performance of Final Model
