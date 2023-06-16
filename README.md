@@ -1,4 +1,4 @@
-# Illuminating Intelligence
+# Illuminating Intelligence - ML
 Assessing Predictive Power for Major Power Outages in the U.S.
 
 Data Source: [data](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks)
@@ -34,9 +34,47 @@ My exploratory data analysis on this dataset can be found [here](https://pndang.
 - **Rationale**: Instead of accuracy or F1-score, the MCC is chosen because, unlike accuracy, it considers all outcomes of classification in its calculation (TP, FP, TN, FN), as well as the quality of each metric across all classes (outage severity), which incorporates the subtle class imbalance present into account. In addition, unlike in the biomedical or similar unique contexts, a distinct emphasis on either recall or precision is not necessary. Hence, the MCC is fitting as an encompassing metric to assess outage severity prediction performance.
 
 
+### Exploratory Analysis for Feature Engineering
+
+#### Determining appropriate thresholds for outage severity (target variable)
+
+Figure 1 
+<iframe src='assets/ca_fig.html' width=900 height=500 frameBorder=0></iframe>
+
+Figure 1 shows a boxplot of the value ranges for attribute number of customers affected in an outage. The observed ranges are used to determine outage severity in terms of customers affected.
+- Number of customers affected: <=75k (minor), <=150k (moderate), <=360k (major), over 360k (severe)
+
+
+Figure 2
+<iframe src='assets/od_fig.html' width=900 height=500 frameBorder=0></iframe>
+
+Figure 2 shows a boxplot of the value ranges for outage duration in hours. The observed ranges are used to determine outage severity in terms of outage duration.
+- Duration: <=12 hours (minor), <=48 hours (moderate), <=117 hours (major), over 117 hours (severe)
+
+
+#### Determining appropriate transformations for learning features
+
+Figure 3
+<iframe src='assets/util_fig.html' width=900 height=500 frameBorder=0></iframe>
+
+Figure 3 shows the distribution of utility contribution (in %) to GSP, subset by severity. Since the distribution of every class appears to be centered at a point on the x-axis, binning the utility contribution percentages by 1-D k-means clusters could capture the individual pattern of each severity class. 
+
+
+Figure 4
+<iframe src='assets/ncs_fig.html' width=900 height=500 frameBorder=0></iframe>
+
+Figure 4 shows the distribution of the annual number of customers served in the U.S. state where an outage occurred, subset by severity. The composition of severity classes seems to fluctuate and changes significantly at different levels of customers served, with slightly similar patterns every 3-4 bins; this suggest that a uniform discretization (binning) strategy could potentially group similar data points to reduce noise, while emphasizing relevant patterns across the groups.
+
+
+Figure 5
+<iframe src='assets/ano_fig.html' width=900 height=500 frameBorder=0></iframe>
+
+Figure 5 shows the distribution of anomaly levels, subset by severity. Interestingly, across the classes, the distributions are already in a nice form with gradual changes across the anomaly levels, except for a spike in class 4 (severe) for levels above 1.5. To prevent encountering information loss from unnecessary transformations, the anomaly levels attribute will be kept in original form.
+
+
 ## Baseline Model
 
-### Preliminary description
+### Preliminary Description
 
 **Model**: Random Forest Classifier
 
@@ -49,14 +87,19 @@ My exploratory data analysis on this dataset can be found [here](https://pndang.
  - **outage start time** (ordinal, extract hour)
 
 
-Figure 1 
+Figure 6 
 <iframe src='assets/baseline-confusion-matrix.png' width=1000 height=500 frameBorder=0></iframe>
 
-Figure 2
+Figure 6 shows the confusion matrix of the baseline model. Importantly, it emphasizes the class imbalance present in the dataset through the high number of true positives and true negatives for the severe class.
+
+
+Figure 7
 <iframe src='assets/baseline-roc.png' width=1000 height=622 frameBorder=0></iframe>
 
+Figure 7 contains one ROC curve for each class, generated independently using the One-vs-Rest multiclass mechanism on the test set. The model has good class-specific performance as shown by having AUC's consistently above 0.71 for every class, indicating a high capacity to correctly predict any given class from the rest.
 
-### Detailed description & Performance of Baseline Model
+
+### Detailed Description & Performance of Baseline Model
 
 **Model**: Random Forest Classifier
 - Details: max tree depth = 9
@@ -91,7 +134,7 @@ Figure 2
 ## Final Model
 
 
-### Preliminary description
+### Preliminary Description
 
 **Model**: Random Forest Classifier
 
@@ -119,14 +162,19 @@ Figure 2
     - **m** (n_bins) ~ the number of bins to discretize data points in utility contribution by k-means clusters, with ordinal encoding.
 
 
-Figure 3 
+Figure 8
 <iframe src='assets/final-confusion-matrix.png' width=9000 height=500 frameBorder=0></iframe>
 
-Figure 4
+Figure 8 shows the confusion matrix of the final model. Similar to baseline, the higher values along the diagonal indicate the model is consistently making correct predictions for each class. Conversely, several high values off the diagonal indicate those are instances where the model mistakenly predicted an incorrect class for some true label.
+
+
+Figure 9
 <iframe src='assets/final-roc.png' width=900 height=622 frameBorder=0></iframe>
 
+Figure 9 shows the ROC curves for each class. Similar to baseline, the curves, and their areas, indicate strong class-specific performance for all classes, specifically the model's ability to distinguish any given class from the rest.
 
-### Detailed description & Performance of Final Model
+
+### Detailed Description & Performance of Final Model
 
 **Model**: Random Forest Classifier
 - **Tuned (Best) hyperparameters** (the combination with highest average validation accuracy): 
@@ -214,12 +262,15 @@ Across both performance metrics, accuracy and MCC, the final model seems to be a
 - In effect, a fairness analysis will be greatly helpful to determine potential loopholes in the data generating process, representation of groups, as well as our own model for future improvements.
 
 
-Figure 5
+Figure 10
 <iframe src='assets/tcs_fig.html' width=1000 height=500 frameBorder=0></iframe>
 
+Figure 10 shows the distribution of annual total customers served in the U.S. state where an outage occurred, marked with three plausible thresholds to separate low vs. high values, that are the median, mean, and 75th percentile. Considering the right-skewed distribution of the data, and the best half split, the median is the ideal threshold.
 
-Figure 6
+Figure 11
 <iframe src='assets/fair_fig.html' width=1000 height=500 frameBorder=0></iframe>
+
+Figure 11 shows the empirical distribution of the difference in MCC under the null hypothesis that the final model is fair both in its predictions for outages in states serving lower numbers of customers, and outages in states serving larger numbers of customers. At a p-value of approximately 0.35, by chance, it is reasonable to have the observed difference of -0.03.
 
 
 ### Fairness Analysis Conclusion
