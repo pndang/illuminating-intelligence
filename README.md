@@ -50,7 +50,7 @@ My exploratory data analysis on this dataset can be found [here](https://pndang.
 
 
 Figure 1 
-<iframe src='assets/baseline-confusion-matrix' width=900 height=500 frameBorder=0></iframe>
+<iframe src='assets/baseline-confusion-matrix.png' width=900 height=500 frameBorder=0></iframe>
 
 
 ## Final Model
