@@ -53,7 +53,7 @@ Figure 1
 <iframe src='assets/baseline-confusion-matrix.png' width=1000 height=500 frameBorder=0></iframe>
 
 Figure 2
-<iframe src='assets/baseline-roc.png' width=1000 height=700 frameBorder=0></iframe>
+<iframe src='assets/baseline-roc.png' width=1000 height=650 frameBorder=0></iframe>
 
 
 ### Detailed description & Performance of Baseline Model
@@ -123,7 +123,7 @@ Figure 3
 <iframe src='assets/final-confusion-matrix.png' width=9000 height=500 frameBorder=0></iframe>
 
 Figure 4
-<iframe src='assets/final-roc.png' width=900 height=700 frameBorder=0></iframe>
+<iframe src='assets/final-roc.png' width=900 height=650 frameBorder=0></iframe>
 
 
 ### Detailed description & Performance of Final Model
