@@ -1,7 +1,7 @@
 # Illuminating Intelligence - ML
 Assessing Predictive Power for Major Power Outages in the U.S.
 
-Data Source: [data](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks)
+Data source: [data](https://engineering.purdue.edu/LASCI/research-data/outages/outagerisks)
 
 
 My exploratory data analysis on this dataset can be found [here](https://pndang.com/illuminating-cognizance/).
