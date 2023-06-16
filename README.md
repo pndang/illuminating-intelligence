@@ -34,9 +34,23 @@ My exploratory data analysis on this dataset can be found [here](https://pndang.
 - **Rationale**: Instead of accuracy or F1-score, the MCC is chosen because, unlike accuracy, it considers all outcomes of classification in its calculation (TP, FP, TN, FN), as well as the quality of each metric across all classes (outage severity), which incorporates the subtle class imbalance present into account. In addition, unlike in the biomedical or similar unique contexts, a distinct emphasis on either recall or precision is not necessary. Hence, the MCC is fitting as an encompassing metric to assess outage severity prediction performance.
 
 
-
-
 ## Baseline Model
+
+### Preliminary description
+
+**Model**: Random Forest Classifier
+
+**Features** - name (type, transformation):
+ - **anomaly level** (quantitative, keep as-is)
+ - **climate category** (nominal, one-hot encode)
+ - **cause category** (nominal, one-hot encode)
+ - **total customers served** (quantitative, keep as-is)
+ - **utility contribution** (quantitative, keep as-is) 
+ - **outage start time** (ordinal, extract hour)
+
+
+Figure 1 
+<iframe src='assets/baseline-confusion-matrix' width=900 height=500 frameBorder=0></iframe>
 
 
 ## Final Model
