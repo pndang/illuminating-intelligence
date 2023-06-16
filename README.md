@@ -94,7 +94,7 @@ Figure 6 shows the confusion matrix of the baseline model. Importantly, it empha
 
 
 Figure 7
-<iframe src='assets/baseline-roc.png' width=1000 height=622 frameBorder=0></iframe>
+<iframe src='assets/baseline-roc.png' width=900 height=622 frameBorder=0></iframe>
 
 Figure 7 contains one ROC curve for each class, generated independently using the One-vs-Rest multiclass mechanism on the test set. The model has good class-specific performance as shown by having AUC's consistently above 0.71 for every class, indicating a high capacity to correctly predict any given class from the rest.
 
